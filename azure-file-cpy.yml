@@ -1,0 +1,78 @@
+name: Copy to Azure VM
+variables:
+  azureConnectionName: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
+  resourceGroupName : 'az3031'
+  organizationName : 'sayankc'
+  pool: 'AgentPool01'
+  agentCount: 1
+  storageAccount: 'skcaz303createazdoagent' #This needs to be globally unique
+  agentFileName: 'vsts-agent-win-x64-2.183.1' #Change this if a new version is available.
+  adminUsername: 'AgentAdmin'
+
+trigger:
+- none
+  # branches:
+  #   include:
+  #   - 'main'
+
+
+stages:
+
+- stage: Deploy
+  condition:
+       and(
+         succeeded(),
+         eq(variables['Build.SourceBranch'], 'refs/heads/main')
+         )
+  jobs:
+  - job: deployment
+    pool:
+      vmImage: windows-latest
+    steps:
+    - task: AzureResourceGroupDeployment@2
+      displayName: Delete existing ResourceGroup
+      inputs:
+        azureSubscription: '$(AzureConnectionName)'
+        action: 'Delete'
+        resourceGroupName: '$(resourceGroupName)'
+      enabled: false
+    - task: AzureResourceGroupDeployment@2
+      displayName: Create new Azure Resources
+      inputs:
+        azureSubscription: '$(AzureConnectionName)'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: '$(resourceGroupName)'
+        location: 'West Europe'
+        templateLocation: 'Linked artifact'
+        csmFile: 'Deploymentfiles/AzureDeploy.json'
+        csmParametersFile: 'Deploymentfiles/AzureDeploy.parameters.json'
+        overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(Password) -storageAccountName $(storageAccount) -agentCount $(agentCount)'
+        deploymentMode: 'Complete'
+        enableDeploymentPrerequisites: 'ConfigureVMwithWinRM'
+      enabled: false
+    # - task: AzureFileCopy@3
+    #   displayName: 'Copy installation files'
+    #   inputs:
+    #     SourcePath: '$(Build.SourcesDirectory)/installationfiles'
+    #     azureSubscription: '$(AzureConnectionName)'
+    #     Destination: 'AzureVMs'
+    #     storage: '$(storageAccount)'
+    #     resourceGroup: '$(resourceGroupName)'
+    #     vmsadminUsername: '$(adminUsername)'
+    #     vmsAdminPassword: '$(Password)'
+    #     TargetPath: 'C:\temp'
+    #   enabled: true
+
+    - task: AzureFileCopy@3
+      displayName: 'Copy installation files'
+      inputs:
+        SourcePath: '$(Build.SourcesDirectory)/installationfiles'
+        azureSubscription: '$(AzureConnectionName)'
+        Destination: 'AzureVMs'
+        storage: '$(storageAccount)'
+        resourceGroup: '$(resourceGroupName)'
+        MachineNames: 'Agent2-0'
+        vmsAdminUserName: '$(adminUsername)'
+        vmsAdminPassword: '$(Password)'
+        TargetPath: 'C:\temp'
+        enableCopyPrerequisites: true
