@@ -10,7 +10,7 @@ Idea is reffered from two links.
 - https://github.com/Azure/azure-quickstart-templates/tree/master/201-vm-winrm-windows 
 
 ### How to start
-To start, refer the pipeline file names `alternate1-201-template.yml`.
+To start, refer the pipeline file named `alternate1-201-template.yml`.
 
 This pipeline will not work without preparations.
 ## Prerequisites:
