@@ -15,10 +15,11 @@ To start, refer the pipeline file named `alternate1-201-template.yml`.
 This pipeline will not work without preparations.
 ## Prerequisites:
 - The agent pool should be created in advanced in the portal. 
+- You should have one service connection available that can create azure resources - resource group, storage account , VM. Otherwise you need to adjust the code slightly to install agent in pre-exisitng VM. Key point to note that winRM should be enabled in the VM. In the pipelie, it is done via Custom Script extension during VM provisioning. 
 - A PAT key with the right permissions should be generated.
 - Create the following variables:
     - Password :the admin password for the machines
-    - Pat: The PAT key 
+    - PAT: The PAT key 
 
 ## What the pipeline does
 I’ll walk through all the tasks in the pipeline
