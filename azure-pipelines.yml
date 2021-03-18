@@ -1,8 +1,8 @@
 name: Deploy Azure DevOps Agent
 variables:
-  azureConnectionName: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
+  azureConnectionName: 'MySubscription'
   resourceGroupName : 'az3031'
-  organizationName : 'sayankc'
+  organizationName : '12345'
   pool: 'AgentPool01'
   agentCount: 1
   storageAccount: 'skcaz303createazdoagent' #This needs to be globally unique
