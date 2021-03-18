@@ -2,7 +2,7 @@ name: Copy to Azure VM
 variables:
   azureConnectionName: 'MySubscription'
   resourceGroupName : 'az3031'
-  organizationName : 'sayankc'
+  organizationName : '12345'
   pool: 'AgentPool01'
   agentCount: 1
   storageAccount: 'skcaz303createazdoagent' #This needs to be globally unique
