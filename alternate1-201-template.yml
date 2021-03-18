@@ -2,7 +2,7 @@ name: Deploy Azure Agent via 201 template
 variables:
   azureConnectionName: 'MySubscription'
   resourceGroupName : 'az3037'
-  organizationName : 'sayankc'
+  organizationName : '12345'
   pool: 'AgentPool01'
   agentCount: 1
   dnsLabelPrefix: az3037skc1
