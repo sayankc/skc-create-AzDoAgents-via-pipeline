@@ -17,7 +17,7 @@ This pipeline will not work without preparations.
 - The agent pool should be created in advanced in the portal. 
 - You should have one service connection available that can create azure resources - resource group, storage account , VM. Otherwise you need to adjust the code slightly to install agent in pre-exisitng VM. Key point to note that winRM should be enabled in the VM. In the pipelie, it is done via Custom Script extension during VM provisioning. 
 - A PAT key with the right permissions should be generated.
-- Create the following variables:
+- Create the following pipeline variables:
     - Password :the admin password for the machines
     - PAT: The PAT key 
 
