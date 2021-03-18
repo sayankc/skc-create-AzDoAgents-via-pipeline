@@ -1,6 +1,6 @@
 name: Copy to Azure VM
 variables:
-  azureConnectionName: 'MSDN Platforms Subscription(8dc51923-766a-43f9-8aad-db08cbc2a19b)'
+  azureConnectionName: 'MySubscription'
   resourceGroupName : 'az3031'
   organizationName : 'sayankc'
   pool: 'AgentPool01'
